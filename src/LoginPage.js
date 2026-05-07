@@ -4,7 +4,6 @@ import { useLogin, useNotify, Notification } from 'react-admin';
 import {
     Box,
     Card,
-    CardContent,
     TextField,
     Button,
     Typography,
@@ -31,64 +30,101 @@ const LoginPage = () => {
     return (
         <Box
             sx={{
-                display: 'flex',
-                flexDirection: 'column',
                 minHeight: '100vh',
+                display: 'flex',
+                bgcolor: 'background.default',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: 'linear-gradient(135deg, #2196f3 0%, #21cbf3 100%)',
             }}
         >
-            <Container maxWidth="sm">
+            <Container maxWidth="lg">
                 <Card sx={{
-                    borderRadius: 4,
-                    boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-                    overflow: 'hidden'
+                    borderRadius: 6,
+                    boxShadow: '0 20px 40px rgba(17, 38, 146, 0.08)',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: { xs: 'column', md: 'row' },
+                    minHeight: '600px'
                 }}>
-                    <Box sx={{
-                        bgcolor: 'primary.main',
-                        p: 3,
-                        textAlign: 'center',
-                        color: 'white'
-                    }}>
-                        <Typography variant="h4" fontWeight="bold" gutterBottom>
+                    {/* Left Side - Branding */}
+                    <Box
+                        sx={{
+                            flex: 1,
+                            background: 'linear-gradient(135deg, #4318FF 0%, #39B8FF 100%)',
+                            color: 'white',
+                            p: 6,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            position: 'relative',
+                            overflow: 'hidden',
+                        }}
+                    >
+                        <Box sx={{ position: 'absolute', top: -50, right: -50, width: 200, height: 200, background: 'rgba(255,255,255,0.1)', borderRadius: '50%' }} />
+                        <Box sx={{ position: 'absolute', bottom: -50, left: -50, width: 150, height: 150, background: 'rgba(255,255,255,0.1)', borderRadius: '50%' }} />
+
+                        <Typography variant="h3" fontWeight="800" gutterBottom sx={{ position: 'relative', zIndex: 1 }}>
                             DailyBachat
                         </Typography>
-                        <Typography variant="body1">
-                            Admin Portal Access
+                        <Typography variant="h6" fontWeight="400" sx={{ opacity: 0.9, position: 'relative', zIndex: 1, mb: 4 }}>
+                            Manage your finances effortlessly and securely.
                         </Typography>
+
+                        <Box sx={{ mt: 'auto', position: 'relative', zIndex: 1 }}>
+                            <Typography variant="body2" sx={{ opacity: 0.8 }}>
+                                &copy; {new Date().getFullYear()} DailyBachat. All rights reserved.
+                            </Typography>
+                        </Box>
                     </Box>
-                    <CardContent sx={{ p: 4 }}>
+
+                    {/* Right Side - Login Form */}
+                    <Box sx={{ flex: 1, p: { xs: 4, md: 8 }, display: 'flex', flexDirection: 'column', justifyContent: 'center', bgcolor: 'background.paper' }}>
+                        <Box sx={{ mb: 5 }}>
+                            <Typography variant="h4" fontWeight="700" color="text.primary" gutterBottom>
+                                Welcome Back
+                            </Typography>
+                            <Typography variant="body1" color="text.secondary">
+                                Enter your email and password to sign in.
+                            </Typography>
+                        </Box>
+
                         <form onSubmit={handleSubmit}>
                             <Box sx={{ mb: 3 }}>
+                                <Typography variant="subtitle2" color="text.primary" fontWeight="600" sx={{ mb: 1 }}>
+                                    Email*
+                                </Typography>
                                 <TextField
                                     fullWidth
-                                    label="Email Address"
                                     variant="outlined"
+                                    placeholder="mail@dailybachat.com"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     autoFocus
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">
-                                                <EmailOutlined color="action" />
+                                                <EmailOutlined sx={{ color: 'text.secondary' }} />
                                             </InputAdornment>
                                         ),
+                                        sx: { borderRadius: 3 }
                                     }}
                                 />
                             </Box>
                             <Box sx={{ mb: 4 }}>
+                                <Typography variant="subtitle2" color="text.primary" fontWeight="600" sx={{ mb: 1 }}>
+                                    Password*
+                                </Typography>
                                 <TextField
                                     fullWidth
-                                    label="Password"
                                     type={showPassword ? 'text' : 'password'}
                                     variant="outlined"
+                                    placeholder="Min. 8 characters"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">
-                                                <LockOutlined color="action" />
+                                                <LockOutlined sx={{ color: 'text.secondary' }} />
                                             </InputAdornment>
                                         ),
                                         endAdornment: (
@@ -97,10 +133,11 @@ const LoginPage = () => {
                                                     onClick={() => setShowPassword(!showPassword)}
                                                     edge="end"
                                                 >
-                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                    {showPassword ? <VisibilityOff sx={{ color: 'text.secondary' }} /> : <Visibility sx={{ color: 'text.secondary' }} />}
                                                 </IconButton>
                                             </InputAdornment>
                                         ),
+                                        sx: { borderRadius: 3 }
                                     }}
                                 />
                             </Box>
@@ -111,27 +148,24 @@ const LoginPage = () => {
                                 type="submit"
                                 sx={{
                                     py: 1.5,
-                                    fontSize: '1.1rem',
-                                    fontWeight: 'bold',
-                                    borderRadius: 2,
-                                    boxShadow: '0 4px 14px 0 rgba(33, 150, 243, 0.39)',
+                                    fontSize: '1rem',
+                                    fontWeight: '700',
+                                    borderRadius: 3,
+                                    textTransform: 'none',
+                                    background: '#4318FF',
+                                    color: 'white',
+                                    boxShadow: 'none',
                                     '&:hover': {
-                                        boxShadow: '0 6px 20px rgba(33, 150, 243, 0.23)',
+                                        background: '#3A14DF',
+                                        boxShadow: '0 4px 12px rgba(67, 24, 255, 0.2)',
                                     }
                                 }}
                             >
                                 Sign In
                             </Button>
                         </form>
-                    </CardContent>
+                    </Box>
                 </Card>
-                <Typography
-                    variant="body2"
-                    align="center"
-                    sx={{ mt: 3, color: 'rgba(255, 255, 255, 0.8)' }}
-                >
-                    &copy; {new Date().getFullYear()} DailyBachat. All rights reserved.
-                </Typography>
             </Container>
             <Notification />
         </Box>
